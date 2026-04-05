@@ -109,10 +109,10 @@ async def predict(file: UploadFile = File(...)):
         }
 
 # ===== RUN =====
-if __name__ == "__main__":
-    uvicorn.run(
-        "server_v2_h5:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True
-    )
+# if __name__ == "__main__":
+#     uvicorn.run(
+#         "server_v2_h5:app",
+#         host="0.0.0.0",
+#         port=8000,
+#         reload=True
+#     )
