@@ -26,10 +26,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_BINARY_PATH = os.path.join(BASE_DIR, "model","model_binary.h5")
 MODEL_PATH = os.path.join(BASE_DIR, "model", "model_v2.h5")
 LABEL_PATH = os.path.join(BASE_DIR, "label", "label_v2_h5.json")
-ASSETS_PATH = os.path.join(BASE_DIR, "..", "frontend", "public", "assets")
+ASSETS_PATH = os.environ.get("ASSETS_PATH", os.path.join(BASE_DIR, "..", "frontend", "public", "assets"))
 
 # ===== STATIC =====
-app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
+if os.path.exists(ASSETS_PATH):
+    app.mount("/assets", StaticFiles(directory=ASSETS_PATH), name="assets")
+else:
+    print(f"⚠️ Warning: Assets path not found at {ASSETS_PATH}. Skipping mount.")
 
 # ===== LOAD MODELS =====
 model_binary = tf.keras.models.load_model(MODEL_BINARY_PATH, compile=False)
